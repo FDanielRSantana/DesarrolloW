@@ -4,7 +4,10 @@
 
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head runat="server">
-    
+    <link href="Content/bootstrap.min.css" rel="stylesheet" />
+
+    <script src="Scripts/bootstrap.min.js"></script>
+    <script src="Scripts/jquery-1.4.1.min.js"></script>
     <script type="text/javascript">
 
         
@@ -21,25 +24,68 @@
             codigoP = document.getElementById("txtCodigoPostal").value;
             rfc = document.getElementById("txtRFC").value;
             cExpre = /^\d{3}$/;
-            nExpre = /^[a-z A-Z]{3,15}$/;
+            nExpre = /^[a-zA-ZÀ-ÿ\u00f1\u00d1]+(\s*[a-zA-ZÀ-ÿ\u00f1\u00d1]*)*[a-zA-ZÀ-ÿ\u00f1\u00d1]{3,15}$/;
             coExpre = /^([a-zA-Z0-9_\.\-])+\@(([a-zA-Z0-9\-])+\.)+([a-zA-Z0-9]{2,4})+$/;//validacion de correo
-            codExpre = /^([0-9]{5}$)/;//validacion de codigo postal
+            codExpre = /^[0-9]{5}$/;
+
+
+            //^([0-9]{5}$)/;//validacion de codigo postal
             rfc12ex = /^[A-Z]{4}[0-9]{6}[A-Z0-9]{3}$/;
             //rfc13ex =/^(([A-Z]|[a-z]|\s){1})(([A-Z]|[a-z]){3})([0-9]{6})((([A-Z]|[a-z]|[0-9]){3}))/;
 
             
 
-            if (clave == "" || nombre == "" || apellidoP == "" || sexoo==-1) {
+            
 
-                alert("Los campos no pueden estar vacios");
-                
+            if (clave == "") {
+                alert("Clave unica esta vacio");
 
-               return false;
+
+                return false;
 
             }
+            if (nombre == "") {
+                alert("Nombre  esta vacio");
 
 
+                return false;
 
+            }
+            if (apellidoP == "") {
+                alert("Apellido Paterno esta vacio");
+
+
+                return false;
+
+            }
+            if (sexoo == -1) {
+                alert("No a elegido un sexo ");
+
+
+                return false;
+
+            }
+            if (correo == "") {
+                alert("Correo electronico esta vacio");
+
+
+                return false;
+
+            }
+            if (codigoP == "") {
+                alert("Codigo Postal esta vacio");
+
+
+                return false;
+
+            }
+            if (rfc == "") {
+                alert("El RFC esta vacio");
+
+
+                return false;
+
+            } 
             ///Validar sexo
             if (sexoo == -1) {
                 alert("Seleccione Masculino o Femenino");
@@ -49,7 +95,7 @@
 
             ///validacion de la clave unica
             if (!cExpre.test(clave)) {
-                alert("ERROR: La clave debe contener 3 numeros");
+                alert("ERROR: La clave solo debe contener 3 numeros");
                 return false;
             }
 
@@ -60,7 +106,7 @@
 
             if (!nExpre.test(nombre)) {
 
-                alert("ERROR EL NOMBRE DEBE CONTENER MINIMO 3 LETRAS Y MAXIMO 15 ");
+                alert("ERROR:: EL NOMBRE DEBE CONTENER MINIMO 3 LETRAS Y MAXIMO 15 ");
                 return false;
             } 
            
@@ -72,7 +118,8 @@
                 return false;
             }
             if (!coExpre.test(correo)) {
-                alert("ERROR:: El correo no tiene la sintaxis correcta");
+                alert("ERROR:: El correo  " + "'" + correo + "'"
+                    + " no tiene la sintaxis correcta \n .:: ejemplo: alguien@alguien.com ::.");
                 return false;
             }
             if (!codExpre.test(codigoP)) {
@@ -100,19 +147,31 @@
 </head>
     
 <body style="height: 569px">
-    <form id="form1" runat="server">
-    <div style="font-family: Arial; font-size: medium; font-weight: bold">
-    
-    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Persona</div>
 
-        <div>
+
+     <div class="container well">
+
+    
+    <form id="form1" runat="server"   >
+    <div class="font-weight-bold  text-center text-warning h1 font-italic">
+        <%--persona  style="font-family: Arial; font-size: medium; font-weight: bold"  class="form-inline"  --%>
+    
         
+
+        
+    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Persona
+       
         </div>
-          <div>
+        <div class="text-primary text-center font-weight-bold ">
+        
+          <div> 
         &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
               <asp:Label ID="lblAccion" runat="server" Text="Accion" Font-Bold="True" ></asp:Label>
         
         </div>
+            
+        </div>
+        
         <div>
 
         </div>
@@ -121,21 +180,28 @@
         </div>
             <div>
 
-        <div> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Sexo:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;<asp:DropDownList ID="ddlSexo" runat="server" 
-                Height="25px" Width="253px" 
+        <div class="form-group  ">  
+             <asp:Label ID="lblsexo" runat="server" Text="Sexo:" CssClass="col-sm-2 col-form-label badge badge-primary text-wrap"></asp:Label>
+            
+            <asp:DropDownList ID="ddlSexo" runat="server" 
+                 
+            class="form-control input-lg"
                >
             </asp:DropDownList>
             <asp:RequiredFieldValidator ID="RequiredFieldValidator1" runat="server" ControlToValidate="ddlSexo" ErrorMessage="*OBLIGATORIO" InitialValue="-1"></asp:RequiredFieldValidator>
     </div>
 
         </div>
-        <div> 
         
-            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+        <div class="form-group  "> 
         
-            Clave Unica:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp; 
+            
+        <asp:Label ID="lblClave" runat="server" Text="Clave Unica:" CssClass="col-sm-2 col-form-label  badge badge-primary text-wrap"></asp:Label>
+            
             <asp:TextBox ID="txtClaveUnica" runat="server" 
-                Width="249px"  ViewStateMode="Disabled"  Required=""  ></asp:TextBox>
+                 ViewStateMode="Disabled" class="form-control" Required="" placeholder="clave unica solo 3 números" maxlength="3" >
+                
+            </asp:TextBox>
         
             <asp:RangeValidator ID="RangeValidator1" runat="server" ControlToValidate="txtClaveUnica" ErrorMessage="La clave debe de ser entre 100 y 999" ForeColor="Black" MaximumValue="999" MinimumValue="100"></asp:RangeValidator>
         
@@ -144,116 +210,117 @@
             <asp:RegularExpressionValidator ID="revClaveunica" runat="server" ControlToValidate="txtClaveUnica" ErrorMessage="La clave unica debe ser de 3 numeros" ForeColor="#3333FF" ValidationExpression="\d{3}"></asp:RegularExpressionValidator>
         
         </div>
-        <div>
+            
+        <div class="form-group " >
         
-            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-        
-            Nombre:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;<asp:TextBox 
-                ID="txtNombre" runat="server" Width="249px" ViewStateMode="Disabled"  Required=""></asp:TextBox>
+            <asp:Label ID="lblNombre" runat="server" Text="Nombre:" CssClass="col-sm-2 col-form-label badge badge-primary text-wrap"></asp:Label>
+            <asp:TextBox ID="txtNombre" runat="server"  class="form-control" ViewStateMode="Disabled"  Required="" placeholder="Nombre mínimo 3 y máximo 15 letras" maxlength="15"></asp:TextBox>
         
             <asp:RequiredFieldValidator ID="RequiredFieldValidator5" runat="server" ControlToValidate="txtNombre" ErrorMessage="*OBLIGATORIO"></asp:RequiredFieldValidator>
         
-            <asp:RegularExpressionValidator ID="RevNombre" runat="server" ControlToValidate="txtNombre" ErrorMessage="El nombre debe de ser minimo de 3 letras" ValidationExpression="^[a-z A-Z]{3,15}" ForeColor="Blue"></asp:RegularExpressionValidator>
+            <asp:RegularExpressionValidator ID="RevNombre" runat="server" ControlToValidate="txtNombre" ErrorMessage="El nombre debe de ser minimo de 3 letras" ValidationExpression="^[a-zA-ZÀ-ÿ\u00f1\u00d1]+(\s*[a-zA-ZÀ-ÿ\u00f1\u00d1]*)*[a-zA-ZÀ-ÿ\u00f1\u00d1]{3,15}$" ForeColor="Blue"></asp:RegularExpressionValidator>
         
         </div>
-        <div> 
-            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
-            A Paterno:&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<asp:TextBox 
-                ID="txtAPaterno" runat="server" Width="249px" ViewStateMode="Disabled"  Required=""></asp:TextBox>
+        <div class="form-group text-primary "> 
+             <asp:Label ID="lblAPaterno" runat="server" Text="A Paterno:" CssClass="col-sm-2 col-form-label  badge badge-primary text-wrap"></asp:Label>
+            
+            <asp:TextBox ID="txtAPaterno" runat="server"  ViewStateMode="Disabled" class="form-control" Required="" placeholder="Apellido P. mínimo 3 y máximo 15 letras" maxlength="15"></asp:TextBox>
             <asp:RequiredFieldValidator ID="RequiredFieldValidator3" runat="server" ControlToValidate="txtAPaterno" ErrorMessage="*OBLIGATORIO"></asp:RequiredFieldValidator>
-            <asp:RegularExpressionValidator ID="RevApellido" runat="server" ControlToValidate="txtAPaterno" ErrorMessage="El apellido debe de tener minimo 3 letras" ForeColor="Blue" ValidationExpression="^[a-z A-Z]{3,15}"></asp:RegularExpressionValidator>
+            <asp:RegularExpressionValidator ID="RevApellido" runat="server" ControlToValidate="txtAPaterno" ErrorMessage="El apellido debe de tener minimo 3 letras" ForeColor="Blue" ValidationExpression="^[a-zA-ZÀ-ÿ\u00f1\u00d1]+(\s*[a-zA-ZÀ-ÿ\u00f1\u00d1]*)*[a-zA-ZÀ-ÿ\u00f1\u00d1]{3,15}$"></asp:RegularExpressionValidator>
         </div>
     <div> 
     
-        <div style="height: 22px; width: 1031px">
-        
-            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-        
-            A Materno:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
-            <asp:TextBox ID="txtAMaterno" runat="server" Width="248px" 
-                ViewStateMode="Disabled"></asp:TextBox>
+        <div class="form-group text-primary ">
+        <asp:Label ID="lblAMaterno" runat="server" Text=" A Materno:" CssClass="col-sm-2 col-form-label badge badge-primary text-wrap"></asp:Label>
+            
+            <asp:TextBox ID="txtAMaterno" runat="server" 
+                ViewStateMode="Disabled" placeholder="Apellido M. mínimo 3 y máximo 15 letras" class="form-control" maxlength="15"></asp:TextBox>
         
             <br />
         
         </div>
     
     </div>
-    <div style="height: 29px; width: 981px;">
-     
-        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<br />
-        <div style="height: 22px; width: 1031px">
+    
+        <div>
+
+        <div class="input-group mb-3 form-group" ><%--class="form-group text-primary "--%>
+
+            <p>
+                <ajaxToolkit:ToolkitScriptManager ID="ToolkitScriptManager1" runat="server"></ajaxToolkit:ToolkitScriptManager>
+           
+                </p>
+
+            <asp:Label ID="lblFecha" runat="server" CssClass="col-sm-8 col-form-label badge badge-primary text-wrap" Text=" Fecha de Nacimiento:" ></asp:Label><%----%>
+         
+            <asp:TextBox ID="txtFechadenacimiento" class="form-control col-2" runat="server"   ></asp:TextBox><%----%>
+
+            
+                  
+
+             <asp:ImageButton ID="ImageButton1" runat="server" ImageUrl="~/Images/calendar_march_14045 (1).png" />
+
+            <ajaxToolkit:CalendarExtender ID="CalendarExtender1" runat="server" Format="dd/MM/yyyy" PopupButtonID="ImageButton1" PopupPosition="TopLeft" TargetControlID="txtFechadenacimiento"></ajaxToolkit:CalendarExtender>
+
+            </div>
+
+           
+      
+        </div>
         
-            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Fecha de Nacimiento:<asp:TextBox ID="txtFechadenacimiento" runat="server" Width="247px"></asp:TextBox>
-&nbsp;<div style="height: 22px; width: 1031px">
-        
-            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-        
-                Correo Electronico:<asp:TextBox ID="txtCorreoE" runat="server" style="margin-left: 14px" Width="246px"></asp:TextBox>
+
+        <div>
+
+
+        </div>
+            <div class="form-group text-primary ">
+         <asp:Label ID="lblCElectronico" runat="server" Text="Correo Electronico:" CssClass="col-sm-2 col-form-label badge badge-primary text-wrap"></asp:Label>
+           <asp:TextBox ID="txtCorreoE" runat="server" class="form-control" placeholder="ejemplo@alguien.com"  maxlength="50"></asp:TextBox>
                 <asp:RequiredFieldValidator ID="revCorreo" runat="server" ControlToValidate="txtCorreoE" ErrorMessage="*OBLIGATORIO"></asp:RequiredFieldValidator>
                 <asp:RegularExpressionValidator ID="RegularExpressionValidator1" runat="server" ControlToValidate="txtCorreoE" ErrorMessage="El correo no tiene la sintaxis correcta" ForeColor="Blue" ValidationExpression="^([a-zA-Z0-9_\.\-])+\@(([a-zA-Z0-9\-])+\.)+([a-zA-Z0-9]{2,4})+$"></asp:RegularExpressionValidator>
-        <div style="height: 22px; width: 1031px">
+       </div>
+                <div class="form-group text-primary ">
+               <asp:Label ID="lblCPostal" runat="server" Text="Codigo Postal:" CssClass="col-sm-2 col-form-label badge badge-primary text-wrap"></asp:Label>
         
-            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-        
-            Codigo Postal: &nbsp;&nbsp;&nbsp;<asp:TextBox ID="txtCodigoPostal" runat="server" style="margin-left: 28px" Width="73px"></asp:TextBox>
+            <asp:TextBox ID="txtCodigoPostal" runat="server" class="form-control" placeholder="Codigo solo contiene 5 números" maxlength="5"></asp:TextBox>
             <asp:RequiredFieldValidator ID="REVCODIGOPOSTAL" runat="server" ControlToValidate="txtCodigoPostal" ErrorMessage="*OBLIGATORIO"></asp:RequiredFieldValidator>
             <asp:RegularExpressionValidator ID="RexCodigoP" runat="server" ControlToValidate="txtCodigoPostal" ErrorMessage="Codigo postal solo consta de 5 números" ForeColor="Blue" ValidationExpression="^[0-9]{5}$"></asp:RegularExpressionValidator>
-        <div style="height: 22px; width: 1031px">
-        
-            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-        
-            RFC: &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-            <asp:TextBox ID="txtRFC" runat="server" style="margin-left: 34px" Width="245px"></asp:TextBox>
-        
+       
+                    </div>
+        <div class="form-group text-primary " >
+            <asp:Label ID="lblRFC" runat="server" Text=" RFC:" CssClass="col-sm-2 col-form-label badge badge-primary text-wrap"></asp:Label>
+            <asp:TextBox ID="txtRFC" runat="server" class="form-control " placeholder="RFC ejemplo. GASI991018243" maxlength="13"></asp:TextBox>
             <asp:RequiredFieldValidator ID="RequiredFieldValidator6" runat="server" ControlToValidate="txtRFC" ErrorMessage="*OBLIGATORIO"></asp:RequiredFieldValidator>
+            <asp:RegularExpressionValidator ID="Revrfc" runat="server" ControlToValidate="txtRFC" ErrorMessage="RFC invalido" ForeColor="Blue" class="alert alert-primary" role="alert" ValidationExpression="^[A-Z]{4}[0-9]{6}[A-Z0-9]{3}$"></asp:RegularExpressionValidator>
         
-            <asp:RegularExpressionValidator ID="Revrfc" runat="server" ControlToValidate="txtRFC" ErrorMessage="RFC invalido" ForeColor="Blue" ValidationExpression="^[A-Z]{4}[0-9]{6}[A-Z0-9]{3}$"></asp:RegularExpressionValidator>
-        
-            <br />
-        
-        </div>
-            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-        
-            <br />
+            
         
         </div>
-    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+
+           <div>
+
+           
         
-            <br />
+            <asp:Calendar ID="txtCalendar" runat="server" Height="121px" style="margin-left: 222px" Width="277px" SelectedDate="01/24/2021 00:36:52"></asp:Calendar>
         
-            <asp:Calendar ID="txtCalendar" runat="server" Height="121px" style="margin-left: 703px" Width="277px" SelectedDate="01/24/2021 00:36:52"></asp:Calendar>
         
-        </div>
             &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
         
-            <br />
-        
-        </div>
-        <br />
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-        <br />
-        <br />
-        <br />
-        <br />
-        <br />
-        <br />
-        <br />
+         </div>   
         <asp:Label ID="lblMensaje" runat="server" Text="..."></asp:Label>
-        <br />
-        <br />
-        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-     
-        <asp:Button ID="btnAceptar" runat="server" Text="Aceptar" 
-            onclick="btnAceptar_Click" ViewStateMode="Disabled" OnClientClick="return mensajes();" />
+        <asp:Label ID="Label1" runat="server" Text="......"></asp:Label>
+        
+        <div class="col text-center">
+            <asp:Button ID="btnAceptar" runat="server" Text="Aceptar" 
+            onclick="btnAceptar_Click" ViewStateMode="Disabled" OnClientClick="return mensajes();" class="btn btn-info btn-lg btn-block" />
         &nbsp;&nbsp;&nbsp;
         <asp:Button ID="btnCancelar" runat="server" Text="Cancelar"
-            OnClick="btnCancelar_Click" ViewStateMode="Disabled" />
-    
-    </div>
-        <div>
+            OnClick="btnCancelar_Click" ViewStateMode="Disabled" class="btn btn-danger btn-lg btn-block" />
 
         </div>
     &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
     </form>
+
+      </div>  
 </body>
 </html>

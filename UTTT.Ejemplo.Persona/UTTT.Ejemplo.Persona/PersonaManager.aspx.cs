@@ -10,9 +10,10 @@ using UTTT.Ejemplo.Linq.Data.Entity;
 using System.Data.Linq;
 using System.Linq.Expressions;
 using System.Collections;
+
+using EASendMail;
 using UTTT.Ejemplo.Persona.Control;
 using UTTT.Ejemplo.Persona.Control.Ctrl;
-using EASendMail;
 
 #endregion
 
@@ -72,7 +73,7 @@ namespace UTTT.Ejemplo.Persona
                     if (this.idPersona == 0)
                     {
                         this.lblAccion.Text = "Agregar";
-                        DateTime tiempo = new DateTime(2003, 01, 01);
+                        DateTime tiempo = DateTime.Now;
                         
                         this.txtCalendar.TodaysDate = tiempo;
                         this.txtCalendar.SelectedDate = tiempo;
@@ -84,7 +85,7 @@ namespace UTTT.Ejemplo.Persona
                         this.txtAPaterno.Text = this.baseEntity.strAPaterno;
                         this.txtAMaterno.Text = this.baseEntity.strAMaterno;
                         this.txtClaveUnica.Text = this.baseEntity.strClaveUnica;
-                        this.setItem(ref this.ddlSexo, baseEntity.CatSexo.strValor);
+                        
                         DateTime? fechadenacimiento = this.baseEntity.dteFechaNacimiento;
                         if (fechadenacimiento != null)
                         {
@@ -94,6 +95,7 @@ namespace UTTT.Ejemplo.Persona
                         this.txtCorreoE.Text = this.baseEntity.strCElectronico;
                         this.txtCodigoPostal.Text = this.baseEntity.strCPostal;
                         this.txtRFC.Text = this.baseEntity.strRFC;
+                        this.setItemEditar(ref this.ddlSexo, baseEntity.CatSexo.strValor);
                     }
                 }
 
@@ -142,15 +144,16 @@ namespace UTTT.Ejemplo.Persona
                         persona.strAMaterno = this.txtAMaterno.Text.Trim();
                         persona.strAPaterno = this.txtAPaterno.Text.Trim();
                         persona.idCatSexo = int.Parse(this.ddlSexo.Text);
-                        DateTime fechadenacimiento = this.txtCalendar.SelectedDate.Date;
-                       
-                        persona.dteFechaNacimiento = fechadenacimiento;
                         persona.strCElectronico = this.txtCorreoE.Text.Trim();
                         persona.strCPostal = this.txtCodigoPostal.Text.Trim();
                         persona.strRFC = this.txtRFC.Text.Trim();
 
+                        DateTime fechadenacimiento = this.txtCalendar.SelectedDate.Date;
 
-                         String mensaje= String.Empty;
+                        persona.dteFechaNacimiento = fechadenacimiento;
+
+
+                        String mensaje= String.Empty;
                         if (!this.validacion(persona, ref mensaje))
                         {
 
@@ -195,11 +198,35 @@ namespace UTTT.Ejemplo.Persona
                             persona.strAMaterno = this.txtAMaterno.Text.Trim();
                             persona.strAPaterno = this.txtAPaterno.Text.Trim();
                             persona.idCatSexo = int.Parse(this.ddlSexo.Text);
-                            DateTime fechadenacimiento = this.txtCalendar.SelectedDate.Date;
-                            persona.dteFechaNacimiento = fechadenacimiento;
                             persona.strCElectronico = this.txtCorreoE.Text.Trim();
                             persona.strCPostal = this.txtCodigoPostal.Text.Trim();
                             persona.strRFC = this.txtRFC.Text.Trim();
+                            
+                            DateTime fechadenacimiento = this.txtCalendar.SelectedDate.Date;
+                            persona.dteFechaNacimiento = fechadenacimiento;
+
+                            String mensaje= String.Empty;
+                        if (!this.validacion(persona, ref mensaje))
+                        {
+
+                            this.lblMensaje.Text = mensaje;
+                            this.lblMensaje.Visible = true;
+                            return;
+                        }
+
+                        if (!this.validaSql(ref mensaje))
+                        {
+
+                            this.lblMensaje.Text = mensaje;
+                            this.lblMensaje.Visible = true;
+                            return;
+                        }
+                        if (!this.validaHTML(ref mensaje))
+                        {
+                            this.lblMensaje.Text = mensaje;
+                            this.lblMensaje.Visible = true;
+                            return;
+                        }
 
                             dcGuardar.SubmitChanges();
                             this.showMessage("El registro se edito correctamente.");
@@ -224,7 +251,12 @@ namespace UTTT.Ejemplo.Persona
 
             }
         }
-    
+
+        //private void showMessage(string v)
+        //{
+        //    throw new NotImplementedException();
+        //}
+
         protected void btnCancelar_Click(object sender, EventArgs e)
         {
             try
@@ -274,6 +306,18 @@ namespace UTTT.Ejemplo.Persona
             _control.Items.FindByText(_value).Selected = true;
         }
 
+        public void setItemEditar(ref DropDownList _control, String _value)
+        {
+            foreach (ListItem item in _control.Items)
+            {
+                if (item.Value!= _value)
+                {
+                    item.Enabled = false;
+                    break;
+                }
+            }
+            _control.Items.FindByText(_value).Selected = true;
+        }
         #endregion
 
         public bool validacion(UTTT.Ejemplo.Linq.Data.Entity.Persona _persona, ref String _mensaje)
@@ -306,19 +350,19 @@ namespace UTTT.Ejemplo.Persona
             }
             if (_persona.strNombre.Length < 3 || _persona.strNombre.Length > 15)
             {
-                _mensaje = "Los caracteres  rebasan lo establecido ";
+                _mensaje = "El nombre rebasa los 15 caracteres ";
                 return false;
             }
 
             // APELLIDO PATERNO
             if (_persona.strAPaterno.Equals(String.Empty))
             {
-                _mensaje = "El Apellido paterno vacio";
+                _mensaje = "El Apellido paterno esta vacío";
                 return false;
             }
-            if (_persona.strAPaterno.Length > 50)
+            if (_persona.strAPaterno.Length > 15)
             {
-                _mensaje = "Los caracteres  rebasan lo establecido";
+                _mensaje = "El apellido esta fuera de rango, rebasa los 15 caracteres ";
                 return false;
             }
 
@@ -328,9 +372,9 @@ namespace UTTT.Ejemplo.Persona
                 _mensaje = "Apellido materno vacio";
                 return false;
             }
-            if (_persona.strAMaterno.Length > 50)
+            if (_persona.strAMaterno.Length > 15)
             {
-                _mensaje = "Los caracteres  rebasan lo establecido";
+                _mensaje = "El apellido materno esta fuera de rango, rebasa los 15 caracteres";
                 return false;
             }
             return true;
@@ -422,7 +466,7 @@ namespace UTTT.Ejemplo.Persona
                 SmtpServer objetoServidor = new SmtpServer("smtp.gmail.com");
 
                 objetoServidor.User = "fdanielrsantana1986@gmail.com";
-                objetoServidor.Password = "maquina1986";
+                objetoServidor.Password = "tucontraseña";
                 objetoServidor.Port = 587;
                 objetoServidor.ConnectType = SmtpConnectType.ConnectSSLAuto;
 

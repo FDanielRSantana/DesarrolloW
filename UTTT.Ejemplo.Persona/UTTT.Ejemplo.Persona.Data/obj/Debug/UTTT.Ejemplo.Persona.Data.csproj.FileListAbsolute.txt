@@ -17,5 +17,6 @@ C:\Users\User\Desktop\UTTT\Manuales\Manual\UTTT.Ejemplo.Persona\UTTT.Ejemplo.Per
 C:\Users\User\Desktop\UTTT\Manuales\Manual\UTTT.Ejemplo.Persona\UTTT.Ejemplo.Persona.Data\obj\Debug\UTTT.Ejemplo.Persona.Data.pdb
 D:\8 Cuatri ING\Edel\Desarrollo Web (1)\Desarrollo Web\Manuales\Manual\UTTT.Ejemplo.Persona\UTTT.Ejemplo.Persona.Data\bin\Debug\UTTT.Ejemplo.Persona.Data.dll
 D:\8 Cuatri ING\Edel\Desarrollo Web (1)\Desarrollo Web\Manuales\Manual\UTTT.Ejemplo.Persona\UTTT.Ejemplo.Persona.Data\bin\Debug\UTTT.Ejemplo.Persona.Data.pdb
+D:\8 Cuatri ING\Edel\Desarrollo Web (1)\Desarrollo Web\Manuales\Manual\UTTT.Ejemplo.Persona\UTTT.Ejemplo.Persona.Data\obj\Debug\UTTT.Ejemplo.Persona.Data.csprojAssemblyReference.cache
 D:\8 Cuatri ING\Edel\Desarrollo Web (1)\Desarrollo Web\Manuales\Manual\UTTT.Ejemplo.Persona\UTTT.Ejemplo.Persona.Data\obj\Debug\UTTT.Ejemplo.Persona.Data.dll
 D:\8 Cuatri ING\Edel\Desarrollo Web (1)\Desarrollo Web\Manuales\Manual\UTTT.Ejemplo.Persona\UTTT.Ejemplo.Persona.Data\obj\Debug\UTTT.Ejemplo.Persona.Data.pdb
